@@ -40,7 +40,8 @@ jobs:
 #          --output-file eslint-results.sarif
         continue-on-error: true
       - name: View results
-        run: metrix++ view --db-file=common.sloc.db
+        run: more common.sloc.db
+#        run: metrix++ view --db-file=common.sloc.db
 #          wait-for-processing: true
 #need to change this to text
 #      - name: Upload output to GitHub
