@@ -1,0 +1,50 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# Metrix++ is a tool to collect and analyze code metrics.
+# More details at https://metrixplusplus.github.io/metrixplusplus/
+
+name: Metrix++
+
+on:
+  push:
+#    branches: [ $default-branch, $protected-branches ]
+#  pull_request:
+#    # The branches below must be a subset of the branches above
+#    branches: [ $default-branch ]
+# Could run on a schedule to capture larger trends
+#  schedule:
+#    - cron: $cron-weekly
+
+jobs:
+  metrixpp:
+    name: Run Metrix++
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Metrix++
+        run: |
+          pip install metrixpp
+      - name: Run Metrix++
+        run: metrix++ collect --std.code.lines.code --db-file common.sloc.db .
+#          --config .eslintrc.js
+#          --ext .js,.jsx,.ts,.tsx
+#          --format @microsoft/eslint-formatter-sarif
+#          --output-file eslint-results.sarif
+        continue-on-error: true
+      - name: View results
+        run: metrix++ view --db-file=petsc.sloc.db
+          wait-for-processing: true
+#need to change this to text
+#      - name: Upload output to GitHub
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: metrixpp-output.sarif
+#          wait-for-processing: true
