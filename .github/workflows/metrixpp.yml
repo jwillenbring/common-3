@@ -41,7 +41,7 @@ jobs:
         continue-on-error: true
       - name: View results
         run: metrix++ view --db-file=petsc.sloc.db
-          wait-for-processing: true
+#          wait-for-processing: true
 #need to change this to text
 #      - name: Upload output to GitHub
 #        uses: github/codeql-action/upload-sarif@v2
