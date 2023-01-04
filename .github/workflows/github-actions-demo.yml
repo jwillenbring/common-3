@@ -21,6 +21,7 @@ jobs:
           echo "GitHub event PR base sha is: ${{ github.event.pull_request.base.sha }}"
       - name: Checkout PR base sha
         run: |
+          echo "checking out the SHA at the start of the PR"
           git checkout ${{ github.event.pull_request.base.sha }}
           git status
       - run: echo "🍏 This job's status is ${{ job.status }}."
